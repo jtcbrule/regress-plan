@@ -7,5 +7,6 @@ Dependencies
 ------------
 
 * python3
-* scipy
+* numpy
+* scipy (library)
 * sympy

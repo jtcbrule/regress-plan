@@ -3,8 +3,6 @@ from sympy import symbols, lambdify
 from scipy.optimize import curve_fit
 import numpy
 
-# Notes: curve_fit needs numpy arrays; numpy arrays are typed, so make sure at least one element of the array is a float to upcast
-
 # maximum number of constants in a symbolic expression
 MAX_CONSTANTS = 10
 
