@@ -1,11 +1,13 @@
 #Test
 
-import sympy
+'''import sympy
 
 a = sympy.Symbol('a')
 b = sympy.Symbol('b')
 
 exp = (a + 3*b)**2
 
-print(exp)
+print(exp)'''
+
+print "hi"
 

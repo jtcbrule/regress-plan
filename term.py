@@ -7,7 +7,7 @@ def plus(x, y):
 
 class Term:
     """ A Term is a symbolic expression as a tree, defined recursively.
-        
+
         An *empty* Term is just Symbol('x'). op is a unary or binary
         *sympy* function wih lhs and rhs being the 1st and 2nd args.
         Since op is a function +, -, *, / must be wrapped as plus(), etc
@@ -36,7 +36,7 @@ class Term:
         else: #binary function
             return self.op(self.lhs.collapse(), self.rhs.collapse())
 
-    def __repr__(self):     
+    def __repr__(self):
         """The tree as an s-expression"""
         if self.op == None:
             return "x"
