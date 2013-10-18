@@ -1,6 +1,5 @@
 #!/bin/env python3
 from sympy import symbols
-from sympy.utilities.lambdify import implemented_function
 
 #wrappers for the field operations
 add = lambda x, y: x + y
@@ -23,6 +22,10 @@ class Term:
 
         TODO: implement a 'leaves' function that returns a collection of
         all the leaves of the tree to make it easier to expand the tree
+
+        TODO: implement +c and *c as functions that represent introducing
+        a constant (i.e. parameter of regression)
+        
     """
 
     def __init__(self, op=None, lhs=None, rhs=None):
@@ -55,7 +58,7 @@ class Term:
             elif self.op == div:
                 op_str = '/'
             else:
-                op_str = str(self.op) #shouldn't happen
+                op_str = str(self.op) #unknown binary function
             
             return ("(" + str(op_str) + " " + str(self.lhs) + " " +
                     str(self.rhs) + ")")

@@ -35,11 +35,11 @@ f = to_lambda(sample_expr, 2)
 # note that trace(cov) is equal to mse for unbiased estimators
 # also, note that curve_fit requires numpy arrays
 popt, pcov = curve_fit(f, x_data, y_data)
-print("Fit to y_data")
-print(popt)
-print(np.sum(np.diag(pcov)))
+#print("Fit to y_data")
+#print(popt)
+#print(np.sum(np.diag(pcov)))
 
 popt, pcov = curve_fit(f, x_data, y_err)
-print("Fit to y_err")
-print(popt)
-print(np.sum(np.diag(pcov)))
+#print("Fit to y_err")
+#print(popt)
+#print(np.sum(np.diag(pcov)))
