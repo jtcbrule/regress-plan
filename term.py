@@ -25,7 +25,7 @@ class Term:
 
         TODO: implement +c and *c as functions that represent introducing
         a constant (i.e. parameter of regression)
-        
+
     """
 
     def __init__(self, op=None, lhs=None, rhs=None):
@@ -59,7 +59,7 @@ class Term:
                 op_str = '/'
             else:
                 op_str = str(self.op) #unknown binary function
-            
+
             return ("(" + str(op_str) + " " + str(self.lhs) + " " +
                     str(self.rhs) + ")")
 
