@@ -1,8 +1,0 @@
-
-store functions as sympy symbolic expressions (x and c1, c2, ... ck)
-
-use scipy to fit to data; need to report error
-
-need strategy for generating symbolic expressions
-
-Search strategy may include a certain 'bayesian' element: the measure of how much we 'want' to expand a certain path may be nicely represented as a probability.
