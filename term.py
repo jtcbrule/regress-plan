@@ -1,16 +1,19 @@
 #!/bin/env python3
 from sympy import symbols
+from sympy.utilities.lambdify import implemented_function
 
-def plus(x, y):
-    """Wrapper for +"""
-    return
+#wrappers for the field operations
+add = lambda x, y: x + y
+sub = lambda x, y: x - y
+mul = lambda x, y: x * y
+div = lambda x, y: x / y
 
 class Term:
     """ A Term is a symbolic expression as a tree, defined recursively.
 
         An *empty* Term is just Symbol('x'). op is a unary or binary
         *sympy* function wih lhs and rhs being the 1st and 2nd args.
-        Since op is a function +, -, *, / must be wrapped as plus(), etc
+        Since op is a function +, -, *, / must be wrapped as add(), etc
 
         sympy functions are in sympy.core.function.elementary
 
@@ -43,7 +46,18 @@ class Term:
         elif self.rhs == None:
             return "(" + str(self.op) + " " + str(self.lhs) + ")"
         else:
-            return ("(" + str(self.op) + " " + str(self.lhs) + " " +
+            if self.op == add:
+                op_str = '+'
+            elif self.op == sub:
+                op_str = '-'
+            elif self.op == mul:
+                op_str = '*'
+            elif self.op == div:
+                op_str = '/'
+            else:
+                op_str = str(self.op) #shouldn't happen
+            
+            return ("(" + str(op_str) + " " + str(self.lhs) + " " +
                     str(self.rhs) + ")")
 
     def __str__(self):
