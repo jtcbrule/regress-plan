@@ -9,6 +9,9 @@ import random
 
 
 class ExpTree:
+
+
+
     def __init__(self):
         self.root = Term()
         self.leaves = [self.root]
