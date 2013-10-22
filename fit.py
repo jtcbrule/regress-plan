@@ -1,4 +1,6 @@
 #!/bin/env python3
+'''Example file demonstrating how to symbolic expressions using scipy'''
+
 from __future__ import print_function, division
 import sympy
 from scipy.optimize import curve_fit
