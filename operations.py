@@ -1,6 +1,6 @@
 '''
 operations.py
-Stores operations/utility functions to be used in expression trees
+Stores operations to be used in expression trees
 '''
 
 from __future__ import division
@@ -8,22 +8,17 @@ from __future__ import division
 import sympy
 import random
 
-MAX_CONSTANTS = 10
-
-''' c[k] = Symbol('ck'); note that c[0] = Symbol('x') '''
 x = sympy.symbols('x')
-c = list(sympy.symbols('c1:' + str(MAX_CONSTANTS)))
-c.insert(0, x)
 
-def to_lambda(expr, num_param):
-    """ Return a (python) lambda expression 
+def to_lambda(expr, constants):
+    """ Convert sympy expression of x and constants to python lambda function.
+        Note that all expressions are assumed to be functions of at least x,
+        so the constants list should not contain Symbol('x').
 
-        expr - symbolic expression composed of x and c1, ..., ck
-        num_param - number of parameters (e.g. f(x; c1, c2) has 2 params)
-        
-        Note that expr cannot contain constant ck for k > num_param
+        expr - sympy symbolic expression composed of x and c1, ..., ck
+        constants - list of constants (e.g. [c1, c2])
     """
-    return sympy.lambdify(c[0:(num_param + 1)], expr)
+    return sympy.lambdify([x] + constants, expr)
 
 ''' Unary: '''
 sqrt = sympy.sqrt
