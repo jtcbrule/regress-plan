@@ -1,17 +1,30 @@
 #!/bin/env python3
+from __future__ import division
 from sympy import symbols
 
 #wrappers for the field operations
-add = lambda x, y: x + y
-sub = lambda x, y: x - y
-mul = lambda x, y: x * y
-div = lambda x, y: x / y
+def add(x, y):
+    return x + y
+
+def sub(x, y):
+    return x - y
+
+def mul(x, y):
+    return x * y
+
+def div(x, y):
+    return x / y
+
+add.__name__ = '+'
+sub.__name__ = '-'
+mul.__name__ = '*'
+div.__name__ = '/'
 
 class Term:
     """ A Term is a symbolic expression as a tree, defined recursively.
 
-        An *empty* Term is just Symbol('x'). op is a unary or binary
-        *sympy* function wih lhs and rhs being the 1st and 2nd args.
+        An empty Term is just Symbol('x'). op is a unary or binary
+        sympy function wih lhs and rhs being the 1st and 2nd args.
         Since op is a function +, -, *, / must be wrapped as add(), etc
 
         sympy functions are in sympy.core.function.elementary
@@ -19,13 +32,6 @@ class Term:
         Note that a single symbolic expression can have multiple Term
         representations. For example x + sin(x) == sin(x) + x, but these
         have different Term tree forms.
-
-        TODO: implement a 'leaves' function that returns a collection of
-        all the leaves of the tree to make it easier to expand the tree
-
-        TODO: implement +c and *c as functions that represent introducing
-        a constant (i.e. parameter of regression)
-
     """
 
     def __init__(self, op=None, lhs=None, rhs=None):
@@ -47,21 +53,11 @@ class Term:
         if self.op == None:
             return "x"
         elif self.rhs == None:
-            return "(" + str(self.op) + " " + str(self.lhs) + ")"
+            return "(" + self.op.__name__ + " " + str(self.lhs) + ")"
         else:
-            if self.op == add:
-                op_str = '+'
-            elif self.op == sub:
-                op_str = '-'
-            elif self.op == mul:
-                op_str = '*'
-            elif self.op == div:
-                op_str = '/'
-            else:
-                op_str = str(self.op) #unknown binary function
-
-            return ("(" + str(op_str) + " " + str(self.lhs) + " " +
+            return ("(" + self.op.__name__ + " " + str(self.lhs) + " " +
                     str(self.rhs) + ")")
 
     def __str__(self):
         return repr(self)
+
