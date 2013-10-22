@@ -36,7 +36,7 @@ def sub(x, y):
 def mul(x, y):
     return x * y
 def div(x, y):
-    return x / y
+    return x / ya
 
 add.__name__ = '+'
 sub.__name__ = '-'
@@ -44,13 +44,6 @@ mul.__name__ = '*'
 div.__name__ = '/'
 
 binary_ops = [add, sub, mul, div]
-
-''' Constant: '''
-''' These are special because they need a second parameter c, the name of the constant '''
-add_constant = lambda c : lambda x : x + c
-add_constant.__name__ = "add_c"
-mult_by_constant = lambda c : lambda x : x * c
-mult_by_constant.__name__ = "mult_c"
 
 def get_random_unary_op():
     return random.choice(unary_ops)

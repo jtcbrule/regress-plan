@@ -2,6 +2,8 @@
 Testing the expression tree and generating expression trees
 '''
 
+# TODO: fix this file, now that changes to exptree have been made.
+
 import operations as ops
 from exptree import ExpTree
 

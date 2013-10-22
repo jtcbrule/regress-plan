@@ -3,7 +3,7 @@ from term import Term
 import random
 from sympy import symbols, lambdify
 
-# TODO: deepcopy(), (will probably require a __deepcopy__() in Term class
+# TODO: deepcopy(), (will probably require a __deepcopy__() in Term class)
 class ExpTree:
     ''' A wrapper class around a Term tree.
         Keeps track of leaf terms and symbolic constants.
@@ -54,12 +54,46 @@ class ExpTree:
 
         return (term.lhs, term.rhs)
 
-    #TODO: fix the constant op, and the definition in operations.py
-    def apply_constant_op(self, term, op):
-        ''' Apply one of the constant operations (add or multiply by a
-            constant) to the given term. '''
+    def apply_plus_c(self, term):
+        ''' Apply a 'plus constant' op to leaf term; update self.leaves
+            Only callable on a leaf term.
+
+            Returns the new leaf.
+        '''
         assert term.lhs is None and term.rhs is None
+
+        # generate unique constant symbol; update constant list
         c = symbols('c' + str(len(self.constants)))
-        term.op = op(c)
         self.constants.append(c)
+        
+        # expand leaf term
+        term.op = lambda x: x + c
+        term.op.__name__ = '+' + str(c)
         term.lhs = Term()
+        
+        self.leaves.remove(term)
+        self.leaves.append(term.lhs)
+
+        return term.lhs
+
+    def apply_times_c(self, term):
+        ''' Apply a 'times constant' op to leaf term; update self.leaves
+            Only callable on a leaf term.
+
+            Returns the new leaf.
+        '''
+        assert term.lhs is None and term.rhs is None
+
+        # generate unique constant symbol; update constant list
+        c = symbols('c' + str(len(self.constants)))
+        self.constants.append(c)
+        
+        # expand leaf term
+        term.op = lambda x: x * c
+        term.op.__name__ = '*' + str(c)
+        term.lhs = Term()
+        
+        self.leaves.remove(term)
+        self.leaves.append(term.lhs)
+        
+        return term.lhs()
