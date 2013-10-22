@@ -1,24 +1,9 @@
-#!/bin/env python3
-from __future__ import division
+'''
+term.py
+A Term is a single node in an expression tree.
+'''
+
 from sympy import symbols
-
-#wrappers for the field operations
-def add(x, y):
-    return x + y
-
-def sub(x, y):
-    return x - y
-
-def mul(x, y):
-    return x * y
-
-def div(x, y):
-    return x / y
-
-add.__name__ = '+'
-sub.__name__ = '-'
-mul.__name__ = '*'
-div.__name__ = '/'
 
 class Term:
     """ A Term is a symbolic expression as a tree, defined recursively.
@@ -60,4 +45,3 @@ class Term:
 
     def __str__(self):
         return repr(self)
-

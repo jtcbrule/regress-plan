@@ -1,4 +1,5 @@
 #!/bin/env python3
+from __future__ import print_function, division
 from sympy import symbols, lambdify
 from scipy.optimize import curve_fit
 import numpy as np
