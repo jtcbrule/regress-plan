@@ -1,7 +1,6 @@
 #!/bin/env python3
-from term import Term, add, mul
-from sympy import sin
-from fit import to_lambda
+from term import Term
+from operations import add, mul, sin, to_lambda
 
 #x * sin(x) + x
 
