@@ -2,30 +2,38 @@
 Testing the expression tree and generating expression trees
 '''
 
-# TODO: fix this file, now that changes to exptree have been made.
-
 import operations as ops
 from exptree import ExpTree
 
-
-
-def generate_expressions():
+def example_tree():
 
     tree = ExpTree()
-    leaves = [tree]
+    leaf = tree.leaves[0]
+    print("initial tree: " + str(tree))
 
-    print "initial tree: " + str(tree)
-    print "making a change..."
+    leaf = tree.apply_times_c(leaf)
+    print("expanded with apply_times_c(): " + str(tree))
 
-    tree.apply_constant_op(tree.root, ops.add_constant)
+    leaf = tree.apply_plus_c(leaf)
+    print("expanded with apply_plus_c(): " + str(tree))
 
-    print "modified tree: " + str(tree.root.collapse())
+    left_leaf, right_leaf = tree.apply_binary_op(leaf, ops.mul)
+    print("expanded with apply_binary_op(mul): " + str(tree))
 
+    tree.apply_unary_op(left_leaf, ops.sin)
+    print("expanded left leaf with apply_unary_op(sin): " + str(tree))
 
+    tree.apply_unary_op(right_leaf, ops.log)
+    print("expanded right leaf with apply_unary_op(log): " + str(tree))
 
+    expr = tree.to_expr()
+    print("tree as sympy expression: " + str(expr))
+
+    print("number of leaves: " + str(len(tree.leaves)))
+    print("constants: " + str(tree.constants))
 
 def main():
-    generate_expressions()
+    example_tree()
 
 if __name__ == "__main__":
     main()

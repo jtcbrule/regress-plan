@@ -9,5 +9,5 @@ exp = (a + 3*b)**2
 
 print(exp)'''
 
-print "hi"
+print("hi")
 

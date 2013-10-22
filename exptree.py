@@ -24,6 +24,10 @@ class ExpTree:
     def __str__(self):
         return str(self.root)
 
+    def to_expr(self):
+        ''' Return the sympy expression this exptree represents '''
+        return self.root.collapse()
+        
     def apply_unary_op(self, term, op):
         ''' Apply unary operation op to leaf term and update self.leaves
             Only callable on a leaf term.
@@ -96,4 +100,4 @@ class ExpTree:
         self.leaves.remove(term)
         self.leaves.append(term.lhs)
         
-        return term.lhs()
+        return term.lhs

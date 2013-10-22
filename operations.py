@@ -36,7 +36,7 @@ def sub(x, y):
 def mul(x, y):
     return x * y
 def div(x, y):
-    return x / ya
+    return x / y
 
 add.__name__ = '+'
 sub.__name__ = '-'
