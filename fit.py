@@ -1,9 +1,25 @@
 #!/bin/env python3
 from __future__ import print_function, division
-from sympy import symbols, lambdify
+import sympy
 from scipy.optimize import curve_fit
 import numpy as np
-from operations import x, c, to_lambda
+
+MAX_CONSTANTS = 10
+
+''' c[k] = Symbol('ck'); note that c[0] = Symbol('x') '''
+x = sympy.symbols('x')
+c = list(sympy.symbols('c1:' + str(MAX_CONSTANTS)))
+c.insert(0, x)
+
+def to_lambda(expr, num_param):
+    """ Return a (python) lambda expression 
+
+        expr - symbolic expression composed of x and c1, ..., ck
+        num_param - number of parameters (e.g. f(x; c1, c2) has 2 params)
+        
+        Note that expr cannot contain constant ck for k > num_param
+    """
+    return sympy.lambdify(c[0:(num_param + 1)], expr)
 
 sample_expr = c[1] * x**2 + c[2]
 
