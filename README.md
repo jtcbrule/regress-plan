@@ -6,7 +6,7 @@ Files/TODO
 
 * exptree.py - symbolic expression trees; **TODO:** implement __deepcopy__()
 * term.py - individual nodes for an ExpTree()
-* operations.py - collection of sympy-compatible functions to be used in expression trees (or symbolic expressions in general); **TODO:** include all the elementary functions
+* operations.py - sympy-compatible functions **TODO:** add all elementary functions
 * fit.py - utility functions for curve fitting sympy expressions; **TODO:**
     * write wrapper around scipy.optimize.curve_fit for fitting symbolic expressions
     * write fitting function to try multiple random initial guesses
@@ -16,6 +16,8 @@ Files/TODO
 * test_term.py - example of using ExpTree()'s functions
 
 **TODO:** Write unit tests.
+
+**TODO:** Start implementing various search strategies. Recommend one file per search-strategy.
 
 Notes/Ideas
 -----------
@@ -32,7 +34,7 @@ A search strategy that may be worth exploring: define the measure of how much we
 
 ### "Physicist" search ###
 
-Symbolic expressions
+Symbolic expressions composed of the addition of pre-built functions only. Inspired by:
 
 http://xkcd.com/793/
 
