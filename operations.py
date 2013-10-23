@@ -10,16 +10,6 @@ import random
 
 x = sympy.symbols('x')
 
-def to_lambda(expr, constants):
-    """ Convert sympy expression of x and constants to python lambda function.
-        Note that all expressions are assumed to be functions of at least x,
-        so the constants list should not contain Symbol('x').
-
-        expr - sympy symbolic expression composed of x and c1, ..., ck
-        constants - list of constants (e.g. [c1, c2])
-    """
-    return sympy.lambdify([x] + constants, expr)
-
 ''' Unary: '''
 sqrt = sympy.sqrt
 log = sympy.log

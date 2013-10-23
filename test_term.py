@@ -1,5 +1,5 @@
 '''
-Testing the expression tree and generating expression trees
+Testing the expression tree and generating expression trees.
 '''
 
 import operations as ops

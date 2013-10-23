@@ -1,9 +1,7 @@
-import operations as ops
 from term import Term
 import random
-from sympy import symbols, lambdify
+from sympy import symbols
 
-# TODO: deepcopy(), (will probably require a __deepcopy__() in Term class)
 class ExpTree:
     ''' A wrapper class around a Term tree.
         Keeps track of leaf terms and symbolic constants.
@@ -46,7 +44,7 @@ class ExpTree:
         ''' Apply binary operation op to leaf term and update self.leaves
             Only callable on a leaf term. 
 
-            Returns the two new leaves as a tuple
+            Returns the two new leaves as a tuple.
         '''
         assert term.lhs is None and term.rhs is None
         term.op = op

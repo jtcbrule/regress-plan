@@ -1,8 +1,24 @@
 regress-plan
 ============
 
-Notes
------
+Files/TODO
+----------
+
+* exptree.py - symbolic expression trees; **TODO:** implement __deepcopy__()
+* term.py - individual nodes for an ExpTree()
+* operations.py - collection of sympy-compatible functions to be used in expression trees (or symbolic expressions in general); **TODO:** include all the elementary functions
+* fit.py - utility functions for curve fitting sympy expressions; **TODO:**
+    * write wrapper around scipy.optimize.curve_fit for fitting symbolic expressions
+    * write fitting function to try multiple random initial guesses
+    * write function to do a zero-order fit (constant function) and linear fit and report MSE ('baseline' error levels)
+
+* test_fit.py - example of curve fitting using the scipy.optimize library
+* test_term.py - example of using ExpTree()'s functions
+
+**TODO:** Write unit tests.
+
+Notes/Ideas
+-----------
 
 ### Divide by zero and infinity ###
 
@@ -13,6 +29,12 @@ Some of the symbolic expressions might result in a divide by zero. Sympy convert
 ### Weighted probabilistc search ###
 
 A search strategy that may be worth exploring: define the measure of how much we 'want' to expand a certain path represented as a probability vector. Some functions are likely to appear in regression (polynomials), others (e.g. arctan) shouldn't pop up that often.
+
+### "Physicist" search ###
+
+Symbolic expressions
+
+http://xkcd.com/793/
 
 Dependencies
 ------------
