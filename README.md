@@ -24,9 +24,11 @@ Notes/Ideas
 
 ### Divide by zero and infinity ###
 
-Some of the symbolic expressions might result in a divide by zero. Sympy converts these expressions to +inf, -inf or nan as appropriate. To use curve_fit, we can either throw exceptions, or wrap the functions with:
+Some of the symbolic expressions might result in a divide by zero. To use curve_fit, we can either throw exceptions, or wrap the functions with:
 
     numpy.nan_to_num()
+    
+This may require modifying the div() function. Also, I don't know how well numpy.optimize.curve_fit() will react to getting a float('inf') or float('nan').
 
 ### Weighted probabilistc search ###
 
