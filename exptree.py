@@ -1,12 +1,14 @@
 from term import Term
 import random
 from sympy import symbols
-import operations
 import copy
 
 class ExpTree:
     ''' A wrapper class around a Term tree.
         Keeps track of leaf terms and symbolic constants.
+        
+        The .apply_ functions modify the tree in place.
+        Use .copy() to get a deep copy of the tree.
 
         self.root - the root Term
         self.leaves - list of leaf Terms
@@ -104,15 +106,3 @@ class ExpTree:
         self.leaves.append(term.lhs)
 
         return term.lhs
-
-
-
-tree = ExpTree()
-tree.apply_binary_op(tree.root, operations.add)
-tree2 = tree.copy()
-tree2.apply_binary_op(tree2.root.lhs, operations.mul)
-print tree
-print tree2
-
-tree.apply_binary_op(tree.root.rhs, operations.sub)
-print tree
