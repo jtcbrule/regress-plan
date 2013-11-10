@@ -1,14 +1,10 @@
 #!/bin/env python3
 
-'''
-Unit tests for exptree.py
-'''
-
 import operations
 import unittest
 from exptree import ExpTree
 
-class TestSequenceFunctions(unittest.TestCase):
+class TestExpTree(unittest.TestCase):
     def test_deepcopy(self):
         tree = ExpTree()
         tree.apply_binary_op(tree.root, operations.add)

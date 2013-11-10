@@ -1,9 +1,7 @@
 '''
 operations.py
-Stores operations to be used in expression trees
+Operations to be used in expression trees
 '''
-
-from __future__ import division
 
 import sympy
 import random

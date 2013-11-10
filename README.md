@@ -4,18 +4,18 @@ regress-plan
 Files/TODO
 ----------
 
-* exptree.py - symbolic expression trees; **TODO:** implement __deepcopy__()
+* exptree.py - symbolic expression tree
 * term.py - individual nodes for an ExpTree()
-* operations.py - sympy-compatible functions **TODO:** add all elementary functions
+* operations.py - collection of sympy-compatible functions; **TODO:** add all elementary functions
 * fit.py - utility functions for curve fitting sympy expressions; **TODO:**
     * write wrapper around scipy.optimize.curve_fit for fitting symbolic expressions
     * write fitting function to try multiple random initial guesses
     * write function to do a zero-order fit (constant function) and linear fit and report MSE ('baseline' error levels)
 
+* test.py - unit tests; **TODO:** write better unittests (current code coverage is terrible)
+    
 * test_fit.py - example of curve fitting using the scipy.optimize library
 * test_term.py - example of using ExpTree()'s functions
-
-**TODO:** Write unit tests.
 
 **TODO:** Start implementing various search strategies. Recommend one file per search-strategy.
 
