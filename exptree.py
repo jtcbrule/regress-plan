@@ -6,7 +6,7 @@ import copy
 class ExpTree:
     ''' A wrapper class around a Term tree.
         Keeps track of leaf terms and symbolic constants.
-        
+
         The .apply_ functions modify the tree in place.
         Use .copy() to get a deep copy of the tree.
 
