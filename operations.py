@@ -12,9 +12,13 @@ x = sympy.symbols('x')
 sqrt = sympy.sqrt
 log = sympy.log
 sin = sympy.sin
+cos = sympy.cos # redundant
 tan = sympy.tan
+exp = sympy.exp
 
-unary_ops = [sqrt, log, sin, tan]
+# inverse trig functions left out
+
+unary_ops = [sqrt, log, sin, tan, exp]
 
 ''' Binary: '''
 def add(x, y):

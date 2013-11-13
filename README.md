@@ -4,7 +4,7 @@ regress-plan
 Files/TODO
 ----------
 
-* exptree.py - symbolic expression tree
+* exptree.py - symbolic expression tree; **TODO:** add "powers" (x^c) in exptree
 * term.py - individual nodes for an ExpTree()
 * operations.py - collection of sympy-compatible functions; **TODO:** add all elementary functions
 * fit.py - utility functions for curve fitting sympy expressions; **TODO:**
