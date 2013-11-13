@@ -13,6 +13,8 @@ import sympy
 import numpy as np
 import random
 
+import matplotlib.pyplot as plt
+
 class simple_generator:
 
 
@@ -24,6 +26,9 @@ class simple_generator:
 
         # Dictionary of operations -> data
         self.ops_to_data = {}
+
+        # Number of points to generate later on:
+        self.num_points = num_points
 
         # Array of noise values with std dev = noise_level
         noise = np.random.normal(0,noise_level,num_points)
@@ -77,34 +82,67 @@ class simple_generator:
         return consts
 
 
+    # Return x and y (f(x)) arrays
+    def generate_data_points(self, lambda_exp, constants, delta=.1):
+        x = []
+        y = []
+        xi = 0
+        for i in range(1, self.num_points):
+            # Skip math domain errors:
+            try:
+                yval = lambda_exp(*([xi] + constants))
+            except:
+                continue
+            x.append(xi)
+            y.append(yval)
+            xi += delta
+        return (x, y)
 
-    def generate_data_points(self, exptree, num_points):
-        pass
+    def to_lambda(self, expr, constants):
+        return sympy.lambdify([sympy.symbols('x')] + constants, expr)
 
 
+
+'''
+These are the methods which client code should use.
+'''
+
+'''
+Returns:
+
+1.) An ExpTree
+2.) A list of constants for that exptree
+3.) A list of x and a list of f(x)
+    - f(x) is generated using the expression tree
+'''
+def get_single_expression_and_data():
+    gen = simple_generator(1000, 1, 10)
+    tree = gen.generate_random_exptree(3)
+    constants = gen.generate_constants(tree)
+    lambda_exp = gen.to_lambda(tree.root.collapse(), tree.constants)
+
+    x, y = gen.generate_data_points(lambda_exp, constants)
+    return tree, constants, x, y
+
+
+
+'''
+Test code:
+'''
+
+def plot(x, y):
+    plt.scatter(x, y)
+    plt.show()
 
 
 def main():
-    gen = simple_generator(1, 1, 10)
-    tree = gen.generate_random_exptree(2)
-    gen.generate_constants(tree)
 
+    tree, constants, x, y = get_single_expression_and_data()
 
-    lambda_exp = to_lambda(tree.root.collapse(), tree.constants)
-    constants = gen.generate_constants(tree)
-
-    print "expression = " + str(tree.root.collapse())
-    print "constants = " + str(constants)
-
-    for i in range(1,10):
-        print i, '\t', lambda_exp(*([i]+constants))
-
-
-def to_lambda(expr, constants):
-    #print str([sympy.symbols('x')] + constants)
-    #print expr
-    return sympy.lambdify([sympy.symbols('x')] + constants, expr)
-
+    print "Expression: " + str(tree.root.collapse())
+    print "Constants: " + str(constants)
+    print "X: " + str(x[:10])
+    print "Y: " + str(y[:10])
 
 
 if __name__ == "__main__":
