@@ -4,16 +4,15 @@ regress-plan
 Files/TODO
 ----------
 
-* exptree.py - symbolic expression tree
+* exptree.py - symbolic expression tree;
 * term.py - individual nodes for an ExpTree()
-* operations.py - collection of sympy-compatible functions; **TODO:** add all elementary functions
+* operations.py - collection of sympy-compatible functions;
 * fit.py - utility functions for curve fitting sympy expressions; **TODO:**
-    * write wrapper around scipy.optimize.curve_fit for fitting symbolic expressions
-    * write fitting function to try multiple random initial guesses
-    * write function to do a zero-order fit (constant function) and linear fit and report MSE ('baseline' error levels)
+    * improve sym_fit() to allow for multiple initial random guesses (initial guesses based on data?)
 
-* test.py - unit tests; **TODO:** write better unittests (current code coverage is terrible)
+* test.py - unit tests; **TODO:** better unittests (current code coverage is terrible)
     
+* test_symfit.py - example of symbolic curve fitting with wrapper functions
 * test_fit.py - example of curve fitting using the scipy.optimize library
 * test_term.py - example of using ExpTree()'s functions
 
@@ -22,13 +21,17 @@ Files/TODO
 Notes/Ideas
 -----------
 
-### Divide by zero and infinity ###
+### Domain restrictions and multiple guesses ###
 
-Some of the symbolic expressions might result in a divide by zero. To use curve_fit, we can either throw exceptions, or wrap the functions with:
+Fitting a function like log(x + c0) can lead to non-fits (sym_fit() returns nan) if initial guess puts log() outside of its defined domain. One way to solve this is with multiple initial guess on the fitting function. (By default, the initial guess for all parameters is 1.) In the mean time, just use data with nothing but positive domains.
 
-    numpy.nan_to_num()
-    
-This may require modifying the div() function. Also, I don't know how well numpy.optimize.curve_fit() will react to getting a float('inf') or float('nan').
+### operations.py and exptree.py ##
+
+Powers (x^c) are approximately represented in the search space via repeated multiplication and square roots.
+
+Trigonometric functions are over-represented (sin, cos, tan can be expressed in terms of each other), but this may be a better search space. Smiliarily, sub() may be redundant.
+
+Inverse trigonometric functions are fully represented (arcsin and arccos are elementary functions of arctan); arctan was the only one included since it's domain is entire real line.
 
 ### Weighted probabilistc search ###
 
@@ -45,12 +48,5 @@ Dependencies
 
 * python3
 * numpy
-* scipy (library)
+* scipy (library, not the full stack)
 * sympy
-
-Sympy
------
-
-Quirks of the sympy library:
-
-http://docs.sympy.org/latest/tutorial/gotchas.html
