@@ -21,6 +21,10 @@ Files/TODO
 Notes/Ideas
 -----------
 
+### Domain restrictions and multiple guesses ###
+
+Fitting a function like log(x + c0) can lead to non-fits (sym_fit() returns nan) if initial guess puts log() outside of its defined domain. One way to solve this is with multiple initial guess on the fitting function. (By default, the initial guess for all parameters is 1.) In the mean time, just use data with nothing but positive domains.
+
 ### operations.py and exptree.py ##
 
 Powers (x^c) are approximately represented in the search space via repeated multiplication and square roots.
