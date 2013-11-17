@@ -2,6 +2,7 @@
 '''
 test_fit.py
 Example file demonstrating how to fit symbolic expressions using scipy
+DEPRECATED, use sym_fit() instead.
 '''
 
 import sympy
@@ -23,8 +24,7 @@ f = to_lambda(sample_expr, [c0, c1])
 
 print("Attempting to fit c1 * x^2 + c2")
 
-# note that trace(cov) is equal to mse for unbiased estimators
-# also, note that curve_fit requires numpy arrays
+# note that curve_fit requires numpy arrays
 popt, pcov = curve_fit(f, x_data, y_data)
 print("Fit to y_data")
 print(popt)
