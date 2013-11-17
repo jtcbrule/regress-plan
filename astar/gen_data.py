@@ -117,7 +117,7 @@ Returns:
 '''
 def get_single_expression_and_data():
     gen = simple_generator(1000, 1, 10)
-    tree = gen.generate_random_exptree(3)
+    tree = gen.generate_random_exptree(1)
     constants = gen.generate_constants(tree)
     lambda_exp = gen.to_lambda(tree.root.collapse(), tree.constants)
 

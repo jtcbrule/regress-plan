@@ -38,3 +38,5 @@ def get_random_unary_op():
 
 def get_random_binary_op():
     return random.choice(binary_ops)
+
+

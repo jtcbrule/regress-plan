@@ -1,6 +1,6 @@
 from term import Term
 import random
-from sympy import symbols
+from sympy import symbols, lambdify
 import copy
 
 class ExpTree:
@@ -20,6 +20,12 @@ class ExpTree:
         self.leaves = [self.root] # Bottom level terms
         self.constants = [] # List of constants
 
+        '''
+        SCORE parameter is infinity unless changed to something else.
+        This is for A*.
+        '''
+        self.score = float('inf')
+
     def copy(self):
         return copy.deepcopy(self)
 
@@ -29,9 +35,25 @@ class ExpTree:
     def __str__(self):
         return str(self.root)
 
+    def __compareTo__(self, other):
+        return self.score < other.score
+
     def to_expr(self):
         ''' Return the sympy expression this exptree represents '''
         return self.root.collapse()
+
+
+
+    '''DON'T KNOW IF THIS IS WORKING ...............................'''
+    def to_lambda(self, constants=None):
+        ''' Return a labmda expression of this exptree:
+            If <constants> is given, use these as constants.
+        '''
+        const = self.constants
+        if constants is not None:
+            const = constants
+        return lambdify([symbols('x')] + const, self.to_expr())
+
 
     def apply_unary_op(self, term, op):
         ''' Apply unary operation op to leaf term and update self.leaves
