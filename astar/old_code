@@ -1,0 +1,36 @@
+
+#Some old graphing stuff:#
+
+import networkx as nx
+import matplotlib.pyplot as plt
+
+        # graph
+        if draw_graph:
+            self.g = nx.Graph()
+            self.draw_graph = draw_graph
+            self.idx = 1
+            self.order = {exptree:0}
+
+
+                        if self.draw_graph:
+                            if child not in self.order:
+                                self.order[child] = self.idx
+                                self.idx += 1
+                            self.graph(expr_to_expand, child)
+
+                    if self.draw_graph:
+                        if child not in self.order:
+                            self.order[child] = self.idx
+                            self.idx += 1
+                        self.graph(expr_to_expand, child)
+
+
+    def graph(self, parent, child):
+        val1 = "(" + str(self.order[parent]) + ") " + str(parent.root.collapse())
+        val2 = "(" + str(self.order[parent]) + ") " + str(child.root.collapse())
+        self.g.add_edge(val1, val2)
+
+    def print_graph(self):
+        print self.g.edges()
+        nx.draw(self.g)
+        plt.show()

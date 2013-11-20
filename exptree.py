@@ -20,12 +20,6 @@ class ExpTree:
         self.leaves = [self.root] # Bottom level terms
         self.constants = [] # List of constants
 
-        '''
-        SCORE parameter is infinity unless changed to something else.
-        This is for A*.
-        '''
-        self.score = float('inf')
-
     def copy(self):
         return copy.deepcopy(self)
 
@@ -35,8 +29,6 @@ class ExpTree:
     def __str__(self):
         return str(self.root)
 
-    def __compareTo__(self, other):
-        return self.score < other.score
 
     def to_expr(self):
         ''' Return the sympy expression this exptree represents '''

@@ -37,26 +37,18 @@ def expand(exptree):
 
 
 '''
-Expands ??? guaranteed to contain a constant
+Expands two levels
 '''
-def expand_with_constant():
+def expand_two_levels(exptree):
 
+    all_children = set()
 
-    children = set()
+    level_1 = expand(exptree)
 
-    # 1.) For all leaves:
-    for idx in range(len(exptree.leaves)):
+    for child in level_1:
+        all_children.add(child)
+        children = expand(exptree)
+        for child_child in children:
+            all_children.add(child_child)
 
-        # 2.) For all operations:
-        for op in ops.unary_ops:
-            temp = exptree.copy()
-            temp.apply_unary_op(temp.leaves[idx], op) # Have to index into leaves
-            children.add(temp)
-
-        for op in ops.binary_ops:
-            temp = exptree.copy()
-            temp.apply_binary_op(temp.leaves[idx], op)
-            children.add(temp)
-
-
-
+    return all_children
