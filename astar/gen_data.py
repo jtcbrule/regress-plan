@@ -108,6 +108,10 @@ These are the methods which client code should use.
 '''
 
 '''
+Argument:
+
+1.) expr_depth is the depth of the expression tree to be generated
+
 Returns:
 
 1.) An ExpTree
@@ -115,9 +119,9 @@ Returns:
 3.) A list of x and a list of f(x)
     - f(x) is generated using the expression tree
 '''
-def get_single_expression_and_data():
+def get_single_expression_and_data(expr_depth):
     gen = simple_generator(1000, 1, 10)
-    tree = gen.generate_random_exptree(3)
+    tree = gen.generate_random_exptree(expr_depth)
     constants = gen.generate_constants(tree)
     lambda_exp = gen.to_lambda(tree.root.collapse(), tree.constants)
 

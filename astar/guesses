@@ -1,0 +1,95 @@
+x	x**2
+x	atan(x)
+x	log(x)
+x	2*x
+x	1
+x	sin(x)
+x	0
+x	tan(x)
+x	c0 + x
+x	sqrt(x)
+x	exp(x)
+x	c0*x
+c0*x	c0*x**2
+c0*x	2*c0*x
+c0*x	c0*tan(x)
+c0*x	c0
+c0*x	c0*exp(x)
+c0*x	0
+c0*x	c0*log(x)
+c0*x	c0*sqrt(x)
+c0*x	c0*(c1 + x)
+c0*x	c0*atan(x)
+c0*x	c0*c1*x
+c0*x	c0*sin(x)
+x**2	x*sin(x)
+x**2	x
+x**2	x**(3/2)
+x**2	x*tan(x)
+x**2	x*(c0 + x)
+x**2	x*log(x)
+x**2	x*exp(x)
+x**2	c0*x**2
+x**2	x*sin(x)
+x**2	x*atan(x)
+x**2	x*tan(x)
+x**2	2*x**2
+x**2	x*exp(x)
+x**2	0
+x**2	x*atan(x)
+x**2	x**3
+x**2	2*x**2
+x**2	x
+x**2	0
+x**2	x*log(x)
+x**2	x*(c0 + x)
+x**2	x**3
+x**2	x**(3/2)
+x**2	c0*x**2
+c0 + x	c0
+c0 + x	c0 + log(x)
+c0 + x	c0 + c1 + x
+c0 + x	c0 + atan(x)
+c0 + x	c0 + sin(x)
+c0 + x	c0 + x**2
+c0 + x	c0 + c1*x
+c0 + x	c0 + 2*x
+c0 + x	c0 + tan(x)
+c0 + x	c0 + 1
+c0 + x	c0 + sqrt(x)
+c0 + x	c0 + exp(x)
+2*x	x
+2*x	x + tan(x)
+2*x	c0 + 2*x
+2*x	x**2 + x
+2*x	c0*x + x
+2*x	x + sin(x)
+2*x	x + 1
+2*x	sqrt(x) + x
+2*x	c0 + 2*x
+2*x	x + log(x)
+2*x	c0*x + x
+2*x	x + sin(x)
+2*x	x + atan(x)
+2*x	x + tan(x)
+2*x	3*x
+2*x	x + exp(x)
+2*x	x + log(x)
+2*x	x
+2*x	x + atan(x)
+2*x	x + exp(x)
+2*x	x**2 + x
+2*x	3*x
+2*x	sqrt(x) + x
+2*x	x + 1
+sqrt(x)	sqrt(c0 + x)
+sqrt(x)	1
+sqrt(x)	sqrt(exp(x))
+sqrt(x)	sqrt(log(x))
+sqrt(x)	0
+sqrt(x)	x**(1/4)
+sqrt(x)	sqrt(atan(x))
+sqrt(x)	sqrt(sin(x))
+sqrt(x)	sqrt(x**2)
+sqrt(x)	sqrt(2)*sqrt(x)
+sqrt(x)	sqrt(tan(x))

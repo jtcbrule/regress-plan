@@ -1,6 +1,6 @@
 from term import Term
 import random
-from sympy import symbols
+from sympy import symbols, lambdify
 import copy
 
 class ExpTree:
@@ -29,9 +29,23 @@ class ExpTree:
     def __str__(self):
         return str(self.root)
 
+
     def to_expr(self):
         ''' Return the sympy expression this exptree represents '''
         return self.root.collapse()
+
+
+
+    '''DON'T KNOW IF THIS IS WORKING ...............................'''
+    def to_lambda(self, constants=None):
+        ''' Return a labmda expression of this exptree:
+            If <constants> is given, use these as constants.
+        '''
+        const = self.constants
+        if constants is not None:
+            const = constants
+        return lambdify([symbols('x')] + const, self.to_expr())
+
 
     def apply_unary_op(self, term, op):
         ''' Apply unary operation op to leaf term and update self.leaves
