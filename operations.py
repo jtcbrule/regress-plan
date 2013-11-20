@@ -18,6 +18,7 @@ exp = sympy.exp
 atan = sympy.atan
 
 unary_ops = [sqrt, log, sin, tan, exp, atan]
+# consider using unary minus instead of sub?
 
 ''' Binary: '''
 def add(x, y):
