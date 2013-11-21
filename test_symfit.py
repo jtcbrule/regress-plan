@@ -55,15 +55,15 @@ print("Fit to y_data")
 print(popt)
 print(err)
 
-print("")
+print("---")
 
-x_data = [-.5, 1, 2, 3]
+x_data = [-8, 1, 2, 3]
 y_data = [1, 2, 3, 4]
 expr = ops.log(x + c0)
 
-print("Attempting to log(x + c0)")
+print("Attempting to log(x + c0) (multiple guesses)")
 
-popt, err = sym_fit(expr, [c0], x_data, y_data)
+popt, err = sym_fit(expr, [c0], x_data, y_data, 5)
 print("Fit to y_data")
 print(popt)
 print(err)
