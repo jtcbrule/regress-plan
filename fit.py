@@ -56,11 +56,12 @@ def sym_fit(expr, constants, x_vals, y_vals, guesses=None, max_iter=0):
         popt, pcov = scipy.optimize.curve_fit(f, x_data, y_data, maxfev=max_iter)
         f_opt = lambda x: f(x, *popt)
         err = sse(f_opt, x_data, y_data)
-        if err < min_err:
-            min_err = err
-            min_popt = popt
     except:
-        pass
+        err = numpy.inf
+    
+    if err < min_err:
+        min_err = err
+        min_popt = popt
     
     if not guesses:
         return (min_popt, min_err)
@@ -76,10 +77,11 @@ def sym_fit(expr, constants, x_vals, y_vals, guesses=None, max_iter=0):
             popt, pcov = scipy.optimize.curve_fit(f, x_data, y_data, guess, maxfev=max_iter)
             f_opt = lambda x: f(x, *popt)
             err = sse(f_opt, x_data, y_data)
-            if err < min_err:
-                min_err = err
-                min_popt = popt
         except:
-            pass
+            err = numpy.inf
+        
+        if err < min_err:
+            min_err = err
+            min_popt = popt
             
     return (min_popt, min_err)

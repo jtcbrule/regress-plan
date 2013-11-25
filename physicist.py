@@ -45,8 +45,13 @@ def rename_constants(prototype, cur_constants):
     cur_constants.extend(new_constants)
     return prototype.subs(zip(prototype_constants, new_constants))
 
+def error_factor(constant, k):
+    '''Regularization term for constants. Threads over lists.'''
+    error = (k * numpy.log(numpy.abs(constant) + 1) - 1)
+    return 1 + numpy.clip(error, 0, numpy.finfo('d').max)
+
 def physics_fit(prototypes, x_data, y_data, threshold=1, max_terms=None,
-                fit_tries=6, mul_depth=1, epsilon=0):
+                fit_tries=12, mul_depth=1, epsilon=0):
     '''Do a "physicist fit"
     prototypes - list of base functions
     x_data, y_data - data to fit
@@ -125,6 +130,11 @@ def main():
 
     print("----")
     info = physics_fit(basic_functions, x_data, data.bullet, threshold = 25)
+    for i in info:
+        print(i)
+
+    print("----")
+    info = physics_fit(basic_functions, range(1, 50 + 1), data.long_bullet, threshold = 40)
     for i in info:
         print(i)
 

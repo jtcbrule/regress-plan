@@ -8,7 +8,7 @@ from sympy import symbols
 from fit import sym_fit
 import operations as ops
 
-x, c0, c1 = symbols("x c0 c1")
+x, c0, c1, c2 = symbols("x c0 c1 c2")
 
 expr = c1 * x**2 + c0
 
@@ -57,13 +57,13 @@ print(err)
 
 print("---")
 
-x_data = [-8, 1, 2, 3]
-y_data = [1, 2, 3, 4]
-expr = ops.log(x + c0)
+x_data = range(-10, 10)
+y_data = range(-10, 10)
+expr = ops.log(x + c0) + c1
 
-print("Attempting to log(x + c0) (multiple guesses)")
+print("Attempting to c1 * log(x + c0) + c2 (multiple guesses)")
 
-popt, err = sym_fit(expr, [c0], x_data, y_data, 5)
+popt, err = sym_fit(expr, [c0, c1], x_data, y_data, 12)
 print("Fit to y_data")
 print(popt)
 print(err)
