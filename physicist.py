@@ -14,7 +14,7 @@ import random
 
 x = sympy.symbols('x')
 
-''' Convention: j, k are constants for prototypes'''
+''' Note: prototype functions CAN NOT use ci (for int i) constant names'''
 j, k = sympy.symbols('j k')
 
 '''List of function prototypes and their constants'''
@@ -30,6 +30,9 @@ def cross_multiply(x, y):
 def rename_constants(prototype, cur_constants):
     '''Rename the constants in prototype expression to avoid name collisions.
     Returns renamed prototype; cur_constants is updated in-place.
+
+    WARNING: unsafe to call on prototype expression with constants of the form
+    ci (for int i)
     '''
     prototype_constants = list(prototype.free_symbols)
     prototype_constants.remove(x)
@@ -43,26 +46,29 @@ def rename_constants(prototype, cur_constants):
     return prototype.subs(zip(prototype_constants, new_constants))
 
 def physics_fit(prototypes, x_data, y_data, threshold=1, max_terms=None,
-                fit_tries=3, mul_depth=1, epsilon=0):
+                fit_tries=6, mul_depth=1, epsilon=0):
     '''Do a "physicist fit"
     prototypes - list of base functions
     x_data, y_data - data to fit
     threshold - stop when fit error is below threshold
-    max_terms - stop when model has this many potototype functions
-    mul-depth - generates more prototypes by cross_multipying
-    epsilon - probability of choosing non-optimal term
+    max_terms - stop when model has this many potototype expressions
+    mul-depth - generates more prototypes by cross_multipying (unimplemented)
+    epsilon - probability of choosing non-optimal term (unimplemented)
     '''
+    
+    debug_info = []
 
     # TODO: cross_multiply mul_depth times
+    # TODO: epsilon-greedy strategy
 
-    # zero-order model
-    c0 = sympy.symbols('c0')
+    # zero-order and first-order models
+    c0, c1 = sympy.symbols('c0 c1')
    
     # calculate error levels for every function prototype
     base_score = []
     for func in prototypes:
-        # add a leading constant for better fitting
-        func_plus_const = func + c0
+        # add leading constants for better fitting
+        func_plus_const = c1 * func + c0
         constants = func_plus_const.free_symbols 
         constants.remove(x) 
         constants = list(constants)
@@ -72,6 +78,8 @@ def physics_fit(prototypes, x_data, y_data, threshold=1, max_terms=None,
 
         if err < numpy.inf:
             base_score.append((err, func))
+        
+        debug_info.append((func_plus_const.subs(zip(constants, opt)),err))
     
     base_score = sorted(base_score, key=lambda x: x[0], reverse=True)
     
@@ -79,26 +87,46 @@ def physics_fit(prototypes, x_data, y_data, threshold=1, max_terms=None,
     model = c0
     opt, cur_err = fit.sym_fit(model, model_constants, x_data, y_data)
 
-    print("Baseline error:", cur_err) #TODO remove
+    debug_info.append((c0.subs(c0,opt),cur_err))
      
     if max_terms==None: max_terms = len(prototypes) 
 
     for i in range(0, max_terms):
         if cur_err < threshold: break
         
-        # update model with best scoring prototype and re-fit
+        # grab the best_scoring expression
         best_expr = base_score.pop()[1]
-        model += rename_constants(best_expr, model_constants)
+
+        # rename constants to avoid name collisions
+        best_expr = rename_constants(best_expr, model_constants)
+        
+        # every prototype term gets a leading multiplicative constant
+        model_constants.append(sympy.symbols('c' + str(len(model_constants))))
+        best_expr *= model_constants[-1]
+       
+        # refit
+        model += best_expr
         opt, cur_err = fit.sym_fit(model, model_constants, x_data, y_data,
                                    fit_tries)
+        
+        debug_info.append((model.subs(zip(model_constants, opt)), cur_err))
 
-        # TODO remove
-        print("Current Model:", model, "Error:", cur_err)
-
-    return (model, opt, cur_err)
+    return debug_info
 
 def main():
-    pass
+    import data
+    
+    x_data = range(1, 25 + 1)
+    
+    info = physics_fit(basic_functions, x_data, data.identity, threshold = 25)
+    
+    for i in info:
+        print(i)
+
+    print("----")
+    info = physics_fit(basic_functions, x_data, data.bullet, threshold = 25)
+    for i in info:
+        print(i)
 
 if __name__ == "__main__":
     main()
