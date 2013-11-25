@@ -294,18 +294,19 @@ def kde():
     x = [xi/float(max(x)) for xi in x]
     y = [yi/float(max(y)) for yi in y]
 
-    print x, y
+    print "Data:", x, y
 
     estimator = smooth.SpatialAverage(x, y)
-
     estimate = estimator.evaluate(x)
-
 
     astar = AStar(x, y, .01, 50, False)
     best = astar.min
     besty = gen_data.get_y_data(best.exptree, best.fit_consts, x)
 
-    print besty
+
+    print "MSE of kernel smoothing estimation: ", mse(y, estimate)
+    print "MSE of function-space greedy search: ", mse(y, besty)
+
 
     plt.scatter(x, y, color='b')
     plt.hold(True)
@@ -314,6 +315,12 @@ def kde():
     plt.show()
 
 
+def mse(actual, predicted):
+    mse = 0
+    for i in range(len(actual)):
+        diff = predicted[i] - actual[i]
+        mse += diff * diff
+    return mse
 
 
 def main():
