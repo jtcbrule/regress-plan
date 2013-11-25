@@ -24,14 +24,14 @@ def to_lambda(expr, constants):
 def sse(f, x_data, y_data):
     ''' Helper function for sym_fit. Return error for function f.
         f must be a unary python function. *_data must be numpy arrays.
-    ''' 
+    '''
     return ((f(x_data) - y_data)**2).sum()
-    
+
 def sym_fit(expr, constants, x_vals, y_vals, guesses=None):
     ''' Fit sympy expression expr of x and constants to vals.
     Return (optimal_fit, sum_squares_error)
     If no fit can be found, sse will be either a numpy inf or nan.
-    
+
     guesses>0 will perform multiple curve_fits with different
     initial values drawn from (N(0, abs(x_data).max() * 1.5) and return the best.
     (This gives approximately a 50% chance the param will be within the range
@@ -40,7 +40,7 @@ def sym_fit(expr, constants, x_vals, y_vals, guesses=None):
     f = to_lambda(expr, constants)
     x_data = numpy.array(x_vals)
     y_data = numpy.array(y_vals)
-   
+
     # no vars to fit
     if len(constants) == 0:
         return ([], sse(f, x_data, y_data))
@@ -51,7 +51,7 @@ def sym_fit(expr, constants, x_vals, y_vals, guesses=None):
         f_opt = lambda x: f(x, *popt)
         err = sse(f_opt, x_data, y_data)
         return (popt, err)
-    
+
     # multiple guesses
     min_err = numpy.inf
     min_popt = numpy.ones(len(constants))
@@ -61,9 +61,10 @@ def sym_fit(expr, constants, x_vals, y_vals, guesses=None):
         popt, pcov = scipy.optimize.curve_fit(f, x_data, y_data, guess)
         f_opt = lambda x: f(x, *popt)
         err = sse(f_opt, x_data, y_data)
-        
+
         if err < min_err:
             min_err = err
             min_popt = popt
-            
-    return (min_popt, min_err)
+
+
+    return (min_popt, abs(min_err))

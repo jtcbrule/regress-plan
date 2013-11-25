@@ -129,6 +129,20 @@ def get_single_expression_and_data(expr_depth):
     return tree, constants, x, y
 
 
+def get_data(exptree, constants):
+    gen = simple_generator(1000, 1, 10)
+    lambda_exp = gen.to_lambda(exptree.root.collapse(), exptree.constants)
+    x, y = gen.generate_data_points(lambda_exp, constants)
+    return x, y
+
+def get_y_data(exptree, constants, x):
+    y = []
+    lambda_exp = sympy.lambdify([sympy.symbols('x')] + exptree.constants, exptree.root.collapse())
+    for xi in x:
+        args = list([xi]) + list(constants)
+        y.append(lambda_exp(*args))
+    return y
+
 
 '''
 Test code:

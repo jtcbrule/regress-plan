@@ -52,3 +52,28 @@ def expand_two_levels(exptree):
             all_children.add(child_child)
 
     return all_children
+
+
+'''
+Expands two levels but better
+'''
+def expand_smart_two_levels(exptree):
+
+    all_children = set()
+
+    level_1 = expand(exptree)
+
+    seen = set()
+
+    for child in level_1:
+        children = expand(exptree)
+        for child_child in children:
+
+            string = child_child.root.collapse()
+            if string in seen:
+                continue
+            seen.add(string)
+
+            all_children.add(child_child)
+
+    return all_children
