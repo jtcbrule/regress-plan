@@ -6,6 +6,7 @@ Utility functions for curve fitting sympy expressions
 import sympy
 import scipy.optimize
 import numpy
+import random
 
 def to_lambda(expr, constants):
     ''' Convert sympy expression composed of x and constants to lambda.
@@ -69,9 +70,15 @@ def sym_fit(expr, constants, x_vals, y_vals, guesses=None, max_iter=0):
     # run fits with initial guess
     x_mean = x_data.mean()
     x_range = x_data.max() - x_data.min()
+    #y_mean = y_data.mean()
+    #y_range = y_data.max() - y_data.min()
+    #xy_range = max(numpy.abs(x_data).max(), numpy.abs(y_data).max())
     for i in range(0, guesses):
         # generate guess
         guess = numpy.random.randn(len(constants)) * x_range + x_mean
+        #guess_y = numpy.random.randn(len(constants)) * y_range + y_mean
+        #guess = random.choice([guess_x, guess_y])
+        #guess = numpy.random.randn(len(constants)) * xy_range
         
         try:
             popt, pcov = scipy.optimize.curve_fit(f, x_data, y_data, guess, maxfev=max_iter)
