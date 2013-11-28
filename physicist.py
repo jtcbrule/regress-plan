@@ -21,7 +21,7 @@ x = sympy.symbols('x')
 j, k = sympy.symbols('j k')
 
 '''List of function prototypes and their constants'''
-basic_functions = [x, x**2, ops.sqrt(x + j), ops.log(x + j), ops.exp(x*j), ops.sin(x*j +k)]
+basic_functions = [x, x**2, ops.sqrt(x + j), ops.log(x + j), ops.exp(x*j), ops.sin(x*j +k), ops.atan(x*j + k)]
 
 
 def cross_multiply(l, k):
@@ -152,23 +152,82 @@ def main():
     
     x_data = numpy.array(range(1, 25 + 1)) 
     x_data = normalize(x_data)
-    y_data = numpy.array(data.identity)
-    y_data = normalize(y_data)
-
-    info = physics_fit(basic_functions, x_data, y_data)
     
-    for i in info:
-        print(i)
+    # print("Identity:")
+    # y_data = numpy.array(data.identity)
+    # y_data = normalize(y_data)
+    # info = physics_fit(basic_functions, x_data, y_data)
+    # for i in info:
+        # print(i)
 
-    print("----")
-    y_data = numpy.array(data.bullet)
+    # print("Bullet:")
+    # y_data = numpy.array(data.bullet)
+    # y_data = normalize(y_data)
+    # info = physics_fit(basic_functions, x_data, y_data)
+    # for i in info:
+        # print(i)
+
+    # print("Oscillator")
+    # y_data = numpy.array(data.oscillator)
+    # y_data = normalize(y_data)
+    # info = physics_fit(basic_functions, x_data, y_data)
+    # for i in info:
+        # print(i)
+        
+    # print("Half Life")
+    # y_data = numpy.array(data.half_life)
+    # y_data = normalize(y_data)
+    # info = physics_fit(basic_functions, x_data, y_data)
+    # for i in info:
+        # print(i)
+        
+    # print("Enzyme")
+    # y_data = numpy.array(data.enzyme)
+    # y_data = normalize(y_data)
+    # info = physics_fit(basic_functions, x_data, y_data)
+    # for i in info:
+        # print(i)
+        
+    # print("Fibonacci")
+    # y_data = numpy.array(data.fibonacci)
+    # y_data = normalize(y_data)
+    # info = physics_fit(basic_functions, x_data, y_data)
+    # for i in info:
+        # print(i)
+        
+    print("Population")
+    y_data = numpy.array(data.population)
     y_data = normalize(y_data)
     info = physics_fit(basic_functions, x_data, y_data)
     for i in info:
         print(i)
-
-    print("___")
-    y_data = numpy.array(data.oscillator)
+        
+    x_data = numpy.array(range(0, 100)) 
+    x_data = normalize(x_data)
+    
+    print("Hubbert")
+    y_data = numpy.array(data.hubbert)
+    y_data = normalize(y_data)
+    info = physics_fit(basic_functions, x_data, y_data)
+    for i in info:
+        print(i)
+    
+    print("US GDP")
+    y_data = numpy.array(data.us_gdp)
+    y_data = normalize(y_data)
+    info = physics_fit(basic_functions, x_data, y_data)
+    for i in info:
+        print(i)
+        
+    print("US population")
+    y_data = numpy.array(data.us_pop)
+    y_data = normalize(y_data)
+    info = physics_fit(basic_functions, x_data, y_data)
+    for i in info:
+        print(i)
+        
+    print("IQ curve")
+    y_data = numpy.array(data.iq)
     y_data = normalize(y_data)
     info = physics_fit(basic_functions, x_data, y_data)
     for i in info:
@@ -176,4 +235,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
